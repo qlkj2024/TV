@@ -1,7 +1,5 @@
 package com.fongmi.android.tv.player;
 
-import android.text.TextUtils;
-
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Constant;
 import com.fongmi.android.tv.api.config.VodConfig;
@@ -63,9 +61,9 @@ public class ParseJob implements ParseCallback {
     }
 
     private String getClick(Result result) {
-        String click = VodConfig.get().getSite(result.getKey()).getClick();
-        if (!TextUtils.isEmpty(click)) return click;
-        return result.getClick();
+        if (!result.getClick().isEmpty()) return result.getClick();
+        if (!result.getJs().isEmpty()) return result.getJs();
+        return VodConfig.get().getSite(result.getKey()).getClick();
     }
 
     private void execute(Result result) {
